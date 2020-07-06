@@ -31,3 +31,4 @@ Route::post('/expense_reports/{expense_report}/expenses','ExpenseController@stor
 Auth::routes(['verify'=> true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+Route::resource('/usuarios','userController');
