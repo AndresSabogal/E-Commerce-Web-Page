@@ -1,6 +1,5 @@
 <?php
-
-namespace Illuminate\Container;
+  namespace Illuminate\Container;
 
 use ArrayAccess;
 use Closure;

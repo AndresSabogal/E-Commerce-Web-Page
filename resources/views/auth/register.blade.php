@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.dashboard')
 
 @section('content')
 <div class="container">
@@ -60,8 +60,8 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-
-                        <div class="form-group row">
+                        
+                        {{-- <div class="form-group row">
 
                             <div class="col-md-6 offset-4">
                                 {!! htmlFormSnippet() !!}
@@ -70,9 +70,9 @@
                                     <strong>{{ $message }}</strong>
                                  </span>
                                 @enderror
-                            </div>
-                        </div>
-                        
+                           </div>
+                        </div> --}}
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

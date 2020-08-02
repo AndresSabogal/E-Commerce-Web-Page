@@ -13,22 +13,25 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/about', function () {
+    return view('about');
+});
+Route::get('/contact', function () {
+    return view('contact');
+});
+
+// Auth::routes();
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home/{id}', 'HomeController@show');
+Route::get('admin', 'AdminController@index');
+Route::resource('posts', 'PostsController');
+Route::resource('users', 'UsersController')->middleware('role:admin,manager');
+Route::resource('roles', 'RolesController')->middleware('can:isAdmin');
+
+
 
 Route::get('/','HomeController@index');
-
 Route::get('/test','DashboardController@index');
-
-Route::resource('/expense_reports','ExpenseReportController');
-Route::get('/expense_reports/{id}/confirmDelete','ExpenseReportController@confirmDelete');
-Route::get('/expense_reports/{id}/confirmSendMail','ExpenseReportController@confirmSendMail');
-Route::post('/expense_reports/{id}/sendMail','ExpenseReportController@sendMail');
-
-Route::get('/expense_reports/{expense_report}/expenses/create','ExpenseReportController@confirmDelete');
-Route::get('/expense_reports/{expense_report}/expenses/create','ExpenseController@create');
-Route::post('/expense_reports/{expense_report}/expenses','ExpenseController@store');
-
-
 Auth::routes(['verify'=> true]);
-
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
-Route::resource('/usuarios','userController');
+Route::resource('/usuarios','UsersController')->middleware('auth')->middleware('verified');
