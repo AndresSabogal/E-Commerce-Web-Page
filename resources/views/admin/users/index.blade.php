@@ -4,10 +4,10 @@
 
 <div class="row py-lg-2">
     <div class="col-md-6">
-        <h2>This is user List</h2>
+        <h2>Esta es la lista de usuarios</h2>
     </div>
     <div class="col-md-6">
-        <a href="/users/create" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Create New User</a>
+        <a href="/users/create" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Crear Nuevo Usuario</a>
     </div>
 </div>
 
@@ -16,28 +16,28 @@
 <div class="card mb-3">
     <div class="card-header">
         <i class="fas fa-table"></i>
-        Data Table Example</div>
+        Tabla de usuarios</div>
     <div class="card-body">
         <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th>Nombre</th>
                 <th>Email</th>
-                <th>Role</th>
-                <th>Permissions</th>
-                <th>Tools</th>
+                <th>Rol</th>
+                <th>Permisos</th>
+                <th>Acciones</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th>Nombre</th>
                 <th>Email</th>
-                <th>Role</th>
-                <th>Permissions</th>
-                <th>Tools</th>
+                <th>Rol</th>
+                <th>Permisos</th>
+                <th>Acciones</th>
             </tr>
             </tfoot>
             <tbody>
@@ -65,7 +65,6 @@
                                     {{ $permission->name }}
                                 </span>
                             @endforeach
-
                         @endif
                     </td>
                     <td>
@@ -83,19 +82,19 @@
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Are you shure you want to delete this?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Estas seguro de borrar este usuario?</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
                 </div>
-                <div class="modal-body">Select "delete" If you realy want to delete this user.</div>
+                <div class="modal-body">Selecciona "Borrar" si realmente quieres borrar este usuario.</div>
                 <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                 <form method="POST" action="">
                     @method('DELETE')
                     @csrf
                     {{-- <input type="hidden" id="user_id" name="user_id" value=""> --}}
-                    <a class="btn btn-primary" onclick="$(this).closest('form').submit();">Delete</a>
+                    <a class="btn btn-primary" onclick="$(this).closest('form').submit();">Borrar</a>
                 </form>
                 </div>
             </div>

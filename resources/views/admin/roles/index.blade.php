@@ -4,10 +4,10 @@
 
 <div class="row py-lg-2">
     <div class="col-md-6">
-        <h2>This is Role List</h2>
+        <h2>Esta es la lista de roles</h2>
     </div>
     <div class="col-md-6">
-        <a href="/roles/create" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Create New Role</a>
+        <a href="/roles/create" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Crear Nuevo Rol</a>
     </div>
 </div>
 
@@ -15,26 +15,26 @@
 <div class="card mb-3">
     <div class="card-header">
         <i class="fas fa-table"></i>
-        Data Table Example</div>
+        Tabla de roles de usuario</div>
     <div class="card-body">
         <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
             <tr>
                 <th>Id</th>
-                <th>Role</th>
+                <th>Rol</th>
                 <th>Slug</th>
-                <th>Permissions</th>
-                <th>Tools</th>
+                <th>Permisos</th>
+                <th>Acciones</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
                 <th>Id</th>
-                <th>Role</th>
+                <th>Rol</th>
                 <th>Slug</th>
-                <th>Permissions</th>
-                <th>Tools</th>
+                <th>Permisos</th>
+                <th>Acciones</th>
             </tr>
             </tfoot>
             <tbody>
@@ -45,13 +45,13 @@
                         <td>{{ $role['slug'] }}</td>
                         <td>
                             @if ($role->permissions != null)
-                                    
+
                                 @foreach ($role->permissions as $permission)
                                 <span class="badge badge-secondary">
-                                    {{ $permission->name }}                                    
+                                    {{ $permission->name }}
                                 </span>
                                 @endforeach
-                            
+
                             @endif
                         </td>
                         <td>
@@ -72,19 +72,19 @@
     <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Are you shure you want to delete this?</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Estas seguro de querer borrar este Rol?</h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
         </div>
-        <div class="modal-body">Select "delete" If you realy want to delete this role.</div>
+        <div class="modal-body">Selecciona "Borrar" si relmente quieres borrar este Rol.</div>
         <div class="modal-footer">
-        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
         <form method="POST" action="">
             @method('DELETE')
             @csrf
             {{-- <input type="hidden" id="role_id" name="role_id" value=""> --}}
-            <a class="btn btn-primary" onclick="$(this).closest('form').submit();">Delete</a>
+            <a class="btn btn-primary" onclick="$(this).closest('form').submit();">Borrar</a>
         </form>
         </div>
     </div>
@@ -95,9 +95,9 @@
 
 <script>
     $('#deleteModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) 
-        var role_id = button.data('roleid') 
-        
+        var button = $(event.relatedTarget)
+        var role_id = button.data('roleid')
+
         var modal = $(this)
         // modal.find('.modal-footer #role_id').val(role_id)
         modal.find('form').attr('action','/roles/' + role_id);

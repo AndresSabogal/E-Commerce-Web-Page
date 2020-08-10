@@ -36,6 +36,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('isContentEditor', function ($user) {
             return $user->roles->first()->slug == 'content-editor';
         });
+        Gate::define('isUser', function ($user) {
+            return $user->roles->first()->slug == 'user';
+        });
 
     }
 }

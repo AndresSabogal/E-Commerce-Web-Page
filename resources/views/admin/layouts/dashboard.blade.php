@@ -24,7 +24,7 @@
   <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 
   @yield('css_role_page')
-
+  @yield('css_product_page')
 </head>
 
 <body id="page-top">
@@ -38,25 +38,50 @@
     </button>
 
     <!-- Navbar Search -->
-    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+    <a href="/userViews"><button type="button" class="btn btn-outline-success btn-lg">Ver Productos</button></a>
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" action="userViews.show" method="get" onsubmit="return showLoad()">
+
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+        <input type="text" name="buscarProducto" class="form-control" placeholder="Buscar..." aria-label="Search" aria-describedby="basic-addon2" required="required">
         <div class="input-group-append">
-          <button class="btn btn-primary" type="button">
+          <button class="btn btn-primary" type="submit">
             <i class="fas fa-search"></i>
           </button>
         </div>
       </div>
     </form>
 
+
+
+    {{-- <div class="panel panel-success">
+        <form action="userViews.show" method="get" onsubmit="return showLoad()">
+            <div class="panel-body">
+                <input type="text" name="buscarProducto" class="form-control" placeholder="Ingresar nombre del producto" required="required">
+                <button type="submit" class="btn btn-success">Buscar</button>
+            </div>
+
+        </form>
+    </div> --}}
+
+
+
+
+
+    @guest
+    <div class="input-group-append">
+        <a href="/login"><button type="button" class="btn btn-success">Ingresar</button></a>
+        <a href="/register"><button type="button" href="/register" class="btn btn-warning">Registrarme</button></a>
+    </div>
+    @endguest
+
+
     <!-- Navbar -->
+    @auth
     <ul class="navbar-nav ml-auto ml-md-0">
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-user-circle fa-fw"></i>
-          @auth
           {{ Auth::user()->name }} {{ Auth::user()->roles->isNotEmpty() ? Auth::user()->roles->first()->name : "" }}
-          @endauth
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
           <div class="dropdown-divider"></div>
@@ -64,7 +89,7 @@
         </div>
       </li>
     </ul>
-
+    @endauth
   </nav>
 
   <div id="wrapper">
@@ -88,16 +113,25 @@
         <li class="nav-item">
           <a class="nav-link" href="/users">
             <i class="fas fa-user-astronaut"></i>
-            <span>Users</span></a>
+            <span>Usuarios</span></a>
         </li>
       @endcanany
 
+      @canany(['isAdmin','isManager'])
       <li class="nav-item">
-        <a class="nav-link" href="/posts">
+        <a class="nav-link" href="/products">
           <i class="fas fa-fw fa-chart-area"></i>
-          <span>Posts</span></a>
+          <span>Productos</span></a>
       </li>
+      @endcanany
 
+      @canany(['isAdmin','isManager'])
+      <li class="nav-item">
+        <a class="nav-link" href="/productsCategory">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Categorias</span></a>
+      </li>
+      @endcanany
       @canany(['isManager, isContentEditor'])
       <li class="nav-item">
         <a class="nav-link" href="/posts">
@@ -105,7 +139,40 @@
           <span>Test</span></a>
       </li>
       @endcanany
+
+      <!--Lista de Botones para compra-->
+    <div class="btn-group-vertical">
+        <div class="btn-group" role="group">
+        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Electro
+        </button>
+        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+          <a class="dropdown-item" href="#">Dropdown link</a>
+          <a class="dropdown-item" href="#">Dropdown link</a>
+        </div>
+    </div>
+
+    <div class="btn-group" role="group">
+        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Tecno
+        </button>
+        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+        <a class="dropdown-item" href="#">Dropdown link</a>
+        <a class="dropdown-item" href="#">Dropdown link</a>
+        </div>
+    </div>
+    <div class="btn-group" role="group">
+        <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Hogar
+        </button>
+        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+          <a class="dropdown-item" href="#">Dropdown link</a>
+          <a class="dropdown-item" href="#">Dropdown link</a>
+        </div>
+    </div>
+</div>
     </ul>
+
 
     <div id="content-wrapper">
 
@@ -142,11 +209,11 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Haz terminado?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <button class="close" type="button" data-dismiss="modal" aria-label="Salir">
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">Selecciona "Logout" si deseas cerrar esta sesion.</div>
+        <div class="modal-body">Selecciona "Salir" si deseas cerrar esta sesion.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
 
@@ -187,6 +254,7 @@
   @yield('js_post_page')
   @yield('js_user_page')
   @yield('js_role_page')
+  @yield('js_product_page')
   </body>
 
 </html>
